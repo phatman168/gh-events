@@ -1,5 +1,23 @@
 name: Events Demo 1
-on: ...
+on: 
+  pull_request: #if someone creates a fork, then create PR from their repo to our repo, it will try to execute workflow - however by default will ask you for approval
+                #only first time approval needed, subsequent will not require
+                #if a contributor creates a PR, no approval needed
+    types:
+      - opened
+      - closed
+    branches:
+      - main
+      - 'dev-*'
+      - 'feat/**' #feat/new feat/new/button
+  workflow_dispatch:
+  push: #https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+    branches:
+      - main
+      - 'dev-*'
+      - 'feat/**' #feat/new feat/new/button
+    paths-ignore:
+      - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
